@@ -1,7 +1,12 @@
-package cmd
+package main
 
-import "fmt"
+import (
+	"fmt"
+	"github.com/BioMihanoid/URLShortener/internal/config"
+)
 
 func main() {
-	fmt.Println("test")
+	cfg := config.MustLoad()
+
+	fmt.Println(cfg)
 }
