@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"github.com/BioMihanoid/URLShortener/internal/config"
 	"github.com/BioMihanoid/URLShortener/internal/storage/sqlite"
 	"log/slog"
@@ -19,16 +18,15 @@ func main() {
 
 	log := setupLogger(cfg.Env)
 
-	log.Info(fmt.Sprintf("%s", "logger info"))
-	log.Debug(fmt.Sprintf("%s", "logger debug"))
-
 	storage, err := sqlite.NewStorage(cfg.StoragePath)
 	if err != nil {
-		log.Debug("failed to init storage", err)
+		log.Error("failed to init storage", err)
 		os.Exit(1)
 	}
 
 	_ = storage
+	storage.DeleteURL("vk")
+	storage.DeleteURL("google")
 }
 
 func setupLogger(env string) *slog.Logger {
